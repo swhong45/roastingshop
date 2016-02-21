@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ko">
+ <head>
+	  <meta charset="UTF-8">
+	  <meta name="Generator" content="andy.sanghong">
+	  <meta name="Author" content="andy.sanghong">
+	  <meta name="Keywords" content="roasting coffee">
+	  <meta name="Description" content="">
+	  <title>Zone>West Pangyo</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+    <script type="text/javascript" src="js/respond.js"></script>
+    <script type="text/javascript" src="js/ga_analytics.js"></script>
+ </head>
+ 
+ <body>
+<script>
+	  // This is called with the results from from FB.getLoginStatus().
+	  function statusChangeCallback(response) {
+		// The response object is returned with a status field that lets the
+		// app know the current login status of the person.
+		// Full docs on the response object can be found in the documentation
+		// for FB.getLoginStatus().
+		if (response.status === 'connected') {
+		  // Logged into your app and Facebook.
+		  testAPI();
+		} else if (response.status === 'not_authorized') {
+		  // The person is logged into Facebook, but not your app.
+		  document.getElementById('status_top').innerHTML = 'Please log in using Facebook';
+		} else {
+		  // The person is not logged into Facebook, so we're not sure if
+		  // they are logged into this app or not.
+			document.getElementById('status_top').innerHTML = 'Please log in using Facebook';
+		}
+	  }
+
+		// This function is called when someone finishes with the Login
+	  // Button.  See the onlogin handler attached to it in the sample
+	  // code below.
+	  function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+		  statusChangeCallback(response);
+		});
+	  }
+
+	  window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '269336933215190',
+		cookie     : true,  // enable cookies to allow the server to access 
+							// the session
+		xfbml      : true,  // parse social plugins on this page
+		version    : 'v2.0' // use version 2.0
+	  });
+
+	  // Now that we've initialized the JavaScript SDK, we call 
+	  // FB.getLoginStatus().  This function gets the state of the
+	  // person visiting this page and can return one of three states to
+	  // the callback you provide.  They can be:
+	  //
+	  // 1. Logged into your app ('connected')
+	  // 2. Logged into Facebook, but not your app ('not_authorized')
+	  // 3. Not logged into Facebook and can't tell if they are logged into
+	  //    your app or not.
+	  //
+	  // These three cases are handled in the callback function.
+
+	  FB.getLoginStatus(function(response) {
+		statusChangeCallback(response);
+	  });
+	};
+
+	// Load the SDK asynchronously
+	  (function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
+
+	  // Here we run a very simple test of the Graph API after login is
+	  // successful.  See statusChangeCallback() for when this call is made.
+	  function testAPI() {
+		FB.api('/me', function(response) {
+		  document.getElementById('status_top').innerHTML = 'What a great day! Welcome back, ' + '<em>' + response.name + '</em>.';  
+		});
+	  }
+	</script>
+
+	<!-- Navbar -->
+	 <nav class="navbar navbar-default" role="navigation" style="padding-right: 10px">
+	  <!-- Brand and toggle get grouped for better mobile display -->
+	  <div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		  <span class="sr-only">Toggle navigation</span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">Roasting Shop</a>
+	  </div>
+	 
+	  <!-- Collect the nav links, forms, and other content for toggling -->
+	  <div class="collapse navbar-collapse navbar-ex1-collapse">
+		<ul class="nav navbar-nav">
+		  <li><a href="../intro.html">Introduction</a></li>
+		  <li><a href="../main.html#new">NEW <span class="badge">42</span> </a></li>
+		  <li><a href="../main.html#new">HOT <span class="label label-info">WoW</span> </a></li>
+		  <li><a href="../main.html#blog">Blog/Social</a></li>
+		  <li><a href="../main.html#twitter">Twitter Cards</a></li>
+		  <li><a href="../main.html#facebook">Facebook Posts</a></li>
+		  <li class="dropdown active">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Zone <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			  <li> <a href="../zone/e_pangyo.html">동판교/백현</a></li>
+			  <li class="active"><a href="../zone/w_pangyo.html">서판교/운중</a></li>
+			  <li class="divider"> </li>
+			   <li><a href="../zone/gangbuk.html">서울/강북</a></li>
+			   <li><a href="../zone/gangnam.html">서울/강남</a></li>
+			</ul>
+		  </li>
+		  <li><a href="../main.html#events">Event</a></li>
+		</ul>
+		<p class="navbar-text navbar-right" id="status_top"> </p>
+		
+		<!-- google custom search -->
+		<script>
+			  (function() {
+				var cx = '014449694390618282185:avxukptghyo';
+				var gcse = document.createElement('script');
+				gcse.type = 'text/javascript';
+				gcse.async = true;
+				gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+					'//www.google.com/cse/cse.js?cx=' + cx;
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(gcse, s);
+			  })();
+		</script>
+		<gcse:search></gcse:search> <!-- /. google custom search -->
+
+		<!-- navbar-form search 
+		<form class="navbar-form navbar-right" role="search">
+		  <div class="form-group">
+			<input type="text" class="form-control" placeholder="키워드">
+		  </div>
+		  <button type="submit" class="btn btn-default">검색</button> 
+		</form> -->
+		
+	  </div><!-- /.navbar-collapse -->
+	</nav><!-- /.navbar -->
+	
+	<div class="jumbotron" style=" background-size: cover; background-image: url(../img/img11.jpg); color:white;">
+		<div class="container" >
+		    <h3>서판교 지역에 있는 로스팅샵을 소개합니다.</h3>
+		</div>
+	</div>
+
+	<div class="divider"> </div>
+	
+	<div class="container">
+		
+		<ol class="breadcrumb">
+			  <li><a href="../main.html">Home</a></li>
+			  <li>Zone</li>
+			  <li class="active">서판교</li>
+		</ol>
+		
+		<div class="row">
+		
+			<div class="col-md-8">
+				<h3>main contents -  under construction! <small>by Andy</small></h3> 
+			</div> <!-- /.col-md-8 -->
+
+			<div class="col-md-4">
+				<h3>affix will be shown here - if it needed... <small>by Andy</small> </h3>
+			</div> <!-- /.col-md-4 -->
+
+		</div> <!-- /.row -->
+
+	</div> <!-- /.container -->
+	
+
+
+ </body>
+</html>

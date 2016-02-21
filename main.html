@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="ko">
+ <head>
+	  <meta charset="UTF-8">
+	  <meta name="Generator" content="andy.sanghong">
+	  <meta name="Author" content="andy.sanghong">
+	  <meta name="Keywords" content="roasting coffee">
+	  <meta name="Description" content="">
+	  <title>RoastingShop</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="js/respond.js"></script>
+	<script type="text/javascript" src="js/ga_analytics.js"></script>
+	<script type="text/javascript" src="js/holder.js"></script>
+
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	
+	<style>
+		
+		body {
+			padding:10px;
+		}
+		
+		.divider {
+			height:50px;
+		}
+
+		section {
+			height:400px;
+			padding-top:50px;
+			padding-bottom:50px;
+			overflow:auto;
+		}
+		
+		.bg-0 {
+			background: url('./img/sub00.jpg') no-repeat top center fixed;
+			color:#fff;
+			background-size:cover;
+		}
+
+		.bg-1 {
+			background: url('./img/sub01.jpg') no-repeat center center fixed;
+			color:#fff;
+			background-size:cover;
+		}
+		  
+		.bg-2 {
+			background: url('./img/sub02.jpg') no-repeat top center fixed;
+			color:#fff;
+			background-size:cover;
+		}
+		
+		.bg-3 {
+			background: url('./img/beans02.jpg') no-repeat bottom center fixed;
+			color:#fff;
+			background-size:cover;
+		}
+		
+
+	</style>
+	
+	<script>
+		(function($) {
+		 
+			$.fn.parallax = function(options) {
+				var windowHeight = $(window).height();
+				  // Establish default settings
+				var settings = $.extend({
+					speed        : 0.15
+				}, options);
+		 
+				// Iterate over each object in collection
+				return this.each( function() {
+		 
+					// Save a reference to the element
+					var $this = $(this);
+		 
+					// Set up Scroll Handler
+					$(document).scroll(function(){
+		 
+							var scrollTop = $(window).scrollTop();
+								var offset = $this.offset().top;
+								var height = $this.outerHeight();
+		 
+					// Check if above or below viewport
+					if (offset + height <= scrollTop || offset >= scrollTop + windowHeight) {
+						return;
+					}
+		 
+					var yBgPosition = Math.round((offset - scrollTop) * settings.speed);
+		 
+						 // Apply the Y Background Position to Set the Parallax Effect
+						$this.css('background-position', 'center ' + yBgPosition + 'px');
+						
+					});
+				});
+			}
+		}(jQuery));
+		
+		$('.bg-1,.bg-3').parallax({
+			speed :	0.15
+		});
+		
+		$('.bg-0,.bg-2').parallax({
+			speed :	0.25
+		});
+	</script>
+	
+	<!-- 
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	-->
+
+ </head>
+ 
+ <body class="pull_top">
+	<script>
+	  // This is called with the results from from FB.getLoginStatus().
+	  function statusChangeCallback(response) {
+		// The response object is returned with a status field that lets the
+		// app know the current login status of the person.
+		// Full docs on the response object can be found in the documentation
+		// for FB.getLoginStatus().
+		if (response.status === 'connected') {
+		  // Logged into your app and Facebook.
+		  testAPI();
+		} else if (response.status === 'not_authorized') {
+		  // The person is logged into Facebook, but not your app.
+		  document.getElementById('status_top').innerHTML = 'Please log in using Facebook';
+		} else {
+		  // The person is not logged into Facebook, so we're not sure if
+		  // they are logged into this app or not.
+			document.getElementById('status_top').innerHTML = 'Please log in using Facebook';
+		}
+	  }
+
+		// This function is called when someone finishes with the Login
+	  // Button.  See the onlogin handler attached to it in the sample
+	  // code below.
+	  function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+		  statusChangeCallback(response);
+		});
+	  }
+
+	  window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '269336933215190',
+		cookie     : true,  // enable cookies to allow the server to access 
+							// the session
+		xfbml      : true,  // parse social plugins on this page
+		version    : 'v2.0' // use version 2.0
+	  });
+
+	  // Now that we've initialized the JavaScript SDK, we call 
+	  // FB.getLoginStatus().  This function gets the state of the
+	  // person visiting this page and can return one of three states to
+	  // the callback you provide.  They can be:
+	  //
+	  // 1. Logged into your app ('connected')
+	  // 2. Logged into Facebook, but not your app ('not_authorized')
+	  // 3. Not logged into Facebook and can't tell if they are logged into
+	  //    your app or not.
+	  //
+	  // These three cases are handled in the callback function.
+
+	  FB.getLoginStatus(function(response) {
+		statusChangeCallback(response);
+	  });
+	};
+
+	// Load the SDK asynchronously
+	  (function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
+
+	  // Here we run a very simple test of the Graph API after login is
+	  // successful.  See statusChangeCallback() for when this call is made.
+	  function testAPI() {
+		FB.api('/me', function(response) {
+		  document.getElementById('status_top').innerHTML = 'What a great day! Welcome back, ' + '<em>' + response.name + '</em>.';  
+		});
+	  }
+	</script>
+
+	<div id="top"></div>
+
+	<!-- Navbar -->
+	 <nav class="navbar navbar-inverse transparent navbar-fixed-top" role="navigation">
+	  <!-- Brand and toggle get grouped for better mobile display -->
+	  <div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		  <span class="sr-only">Toggle navigation</span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">Roasting Shop</a>
+	  </div>
+	 
+	  <!-- Collect the nav links, forms, and other content for toggling -->
+	  <div class="collapse navbar-collapse navbar-ex1-collapse">
+		<ul class="nav navbar-nav">
+		  <li><a href="intro.html">Introduction</a></li>
+		  <li><a href="#new">NEW <span class="badge">42</span> </a></li>
+		  <li><a href="#new">HOT <span class="label label-info">WoW</span> </a></li>
+		  <li><a href="#blog">Blog/Social</a></li>
+		  <li><a href="#twitter">Twitter Cards</a></li>
+		  <li><a href="#facebook">Facebook Posts</a></li>
+		  <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Zone <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			  <li><a href="../zone/e_pangyo.html">동판교/백현</a></li>
+			  <li><a href="../zone/w_pangyo.html">서판교/운중</a></li>
+			  <li class="divider"> </li>
+			   <li><a href="../zone/gangbuk.html">서울/강북</a></li>
+			   <li><a href="../zone/gangnam.html">서울/강남</a></li>
+			</ul>
+		  </li>
+		  <li><a href="#events">Event</a></li>
+		</ul>
+		<p class="navbar-text navbar-right" id="status_top"> </p>
+		
+		
+
+		<!-- navbar-form search 
+		<form class="navbar-form navbar-right" role="search">
+		  <div class="form-group">
+			<input type="text" class="form-control" placeholder="키워드">
+		  </div>
+		  <button type="submit" class="btn btn-default">검색</button> 
+		</form> -->
+		
+	  </div><!-- /.navbar-collapse -->
+	</nav><!-- /.navbar -->
+
+	<div class="divider">	</div>
+
+	<div class="row">
+		
+		<div class="col-md-10">
+			
+			<div class="container-fluid">
+				<!-- Jumbotron -->
+				<div class="jumbotron" style="background: url('./img/book.jpg') no-repeat center center; background-size:cover;">
+					 <div class="container"> 
+						<h1 style="color:white;">Hello, Roasting Shop! <small>by Andy.SangHong</small></h1>
+						<p style="color:white;"> This is a prototype site for testing GATC. I mean...this site is designed and developed to practice implementing GA tracking codes. Thanks.</p>
+						<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div> <!-- facebook login button -->
+					</div> 
+				</div> <!-- /.jumbotron -->
+			</div>
+				
+				
+				<div id="new"></div>
+				
+				<!-- Thumbnails for Local shops where I have visited -->
+				<div class="container-fluid">
+					
+					<!-- 1st row -->
+					<div class="row">
+
+					  <div class="col-sm-6 col-md-3">
+						<div class="thumbnail">
+						  <img src="img/gabeeyang.jpg" alt="...">
+						  <div class="caption">
+							<h3> 가비양 <small>분당</small> <span class="label label-warning">new</span> </h3>
+							<p> 
+							분당에 위치하고 있는 나름 유명하다고 소문난 로스터리카페. 간혹 이벤트 할인하는 원두 판매할 때 이용하는 곳. 분위기는 다소 연령대가 있는 분들이 많이 있는 듯한 느낌. 
+							</p>
+							<a href="http://blog.pulmuone.com/2457" target="_new">[펌리뷰] 핸드드립의 명가, 카페 가비양</a>
+							<p>
+								<button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#purchase_md">구매하기</button> 
+								<button type="button" class="btn btn-block btn-default" 
+								onclick="window.open('http://www.gabeeyang.com/')">사이트로 이동하기</button>
+							</p>
+						  </div>
+						</div>
+					  </div>
+					  
+					  <div class="col-sm-6 col-md-3">
+						<div class="thumbnail">
+						  <img src="img/libre.jpg" alt="...">
+						  <div class="caption">
+							<h3>커피리브레 <small>홍대</small></h3>
+							<p>카페라떼가 맛있는 로스터리샵. 착한 커피에도 소개된 적이 있다고 하는데, 확실히 믿을만 한 커피숖임. 가끔 서울 나들이 가서 근처를 지나갈때면 어김없이 찾아가는 곳. </p>
+							<a href="http://blog.naver.com/sienalis/220054819247" target="_new">[펌리뷰]커피리브레 착한커피</a>
+							<p>
+								<button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#purchase_md">구매하기</button> 
+								<button type="button" class="btn btn-block btn-default" 
+								onclick="window.open('http://www.coffeelibre.kr/')">사이트로 이동하기</button>
+							</p>
+
+						  </div>
+						</div>
+					  </div>
+
+					  <div class="col-sm-6 col-md-3">
+						<div class="thumbnail">
+						  <img src="img/beancent.jpeg" alt="...">
+						  <div class="caption">
+							<h3>빈센트<small>서판교<span class="label label-info">추천</span></small>  </h3>
+							<p>동네에 있지만, 신선한 원두를 조금씩 구매해서 즐길 수 있는 장점이 있는 로스팅샵. 사장님께서 직접 생두를 수입해다가 로스팅을 한다고 해서 그런지, 추천해 주는 원두들이 모두 만족스러웠던 곳. </p>
+							<a href="http://cafe.naver.com/tgchimtm/15132" target="_new">[펌리뷰]서판교 갓볶은 커피 빈센트</a>
+							<p>
+								<button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#purchase_md">구매하기</button> 
+								<button type="button" class="btn btn-block btn-default" 
+								onclick="window.open('http://blog.naver.com/timothyoon/70183683723')">사이트로 이동하기</button>
+							</p>
+						  </div>
+						</div>
+					  </div>
+
+					  <div class="col-sm-6 col-md-3">
+						<div class="thumbnail">
+						  <img src="img/schumann.JPG" alt="...">
+						  <div class="caption">
+							<h3>슈만과 클라라<small>경주<span class="label label-info">추천</span></small>  </h3>
+							<p>경상도 3대 로스팅카페라고 하여 방문한 곳. 로스팅 강도를 선택할 수 있다는 새로운 경험을 했지만, 조금 부담스러웠다. 주문하고자 하는 품종과 로스팅 강도에 해당하는 원두도 준비되지 않았었고...왜 옵션 주문을 받는지...그래도 정말 새로운 주문 경험이었던 곳. 나에겐 오히려 베이커리가 더 인상적이었던 로스팅카페.  </p>
+							<a href="http://blog.naver.com/xiaomianhu/220007787591" target="_new">[펌리뷰]경주 - 슈만과 클라라</a>
+							<p>
+								<button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#purchase_md">구매하기</button> 
+								<button type="button" class="btn btn-block btn-default" 
+								onclick="window.open('http://sangsrunchin.blog.me/220089074237')">사이트로 이동하기</button>
+							</p>
+						  </div>
+						</div>
+					  </div>
+
+					</div> <!-- /. 1st row -->
+
+				</div> <!-- /. container-fluid -->
+
+				
+				<!-- Modal code section -->
+				<!-- Modal purchase_md-->
+				<div class="modal fade" id="purchase_md" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">Purchase and Pay it</h4>
+					  </div>
+					  <div class="modal-body">
+						<h3> 구매하기 <small> 1단계 </small> </h3>
+						<div class="alert alert-info"> Local Shop Thumbnail에서 구매하기 버튼을 클릭했을때 팝업되는 모달뷰입니다. 구매하기 1단계로 가정합니다. </div>
+						
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#p_next" data-dismiss="modal"> 구매결제 </button> 
+						<button type="button" class="btn btn-default" data-dismiss="modal">구매취소</button>
+						
+					  </div>
+					</div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				
+				<!-- Modal p_next -->
+				<div class="modal fade" id="p_next" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">Purchase and Pay it</h4>
+					  </div>
+					  <div class="modal-body">
+						<h3> 구매하기 <small> 2단계 </small> </h3>
+						<div class="alert alert-info"> 구매하기 마지막 단계입니다. 여기에는 구매 대상 아이템 정보들이 표시되면 좋겠네요. 구매 영수증 정보 제공. 여기를 구매 마지막 단계라고 가정합니다. </div>
+						
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">결제완료</button> <!-- /. 이걸 누르면 최종적으로 구매 완료 -->
+						<button type="button" class="btn btn-default" data-dismiss="modal">결제취소</button> <!-- /. 이걸 누르면 구매 취소되면서 원래 페이지로 복귀 -->
+						
+					  </div>
+					</div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!-- /.modal code section end -->
+
+		
+
+<ul>
+	<li>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p class="name1"></p>
+		<p class="name2"></p>
+		<p class="name3"></p>
+		<p class="name4"></p>
+		<p class="name5"></p>
+		<section>
+			<div class="slides" id="name1"></div>
+			<div class="slides" id="name2"></div>
+			<div class="slides" id="name3"></div>
+		</section>
+	</li>
+</ul>
+
+			
+			<div id="blog"></div>
+			<!--parallax 0 -->
+			<section class="bg-0 text-center">
+			  <h1>Blog and Twitter Feeds</h1>
+			  <p class="lead">좋은 <em>블로그</em> 모음...그리고, <em>트위터</em> 뉴스들...</p>
+			</section>
+			<!--/parallax 0-->
+
+			<div class="divider"></div>
+
+				<!-- Blog & Social News -->
+				<div class="container">
+					
+					<div class="row">
+							
+							<!-- Blog -->
+							<div class="col-md-7">
+								<div class="panel panel-success">
+								  <div class="panel-heading">
+									<h3 class="panel-title">Blog</h3>
+								  </div>
+								  <div class="panel-body">
+								
+									    
+
+									<div class="media">
+									  <div class="embed-responsive embed-responsive-16by9">
+									  	<iframe class="embed-responsive-item" src="//www.youtube.com/embed/nO_olzKAzrY" allowfullscreen></iframe>
+										</div>
+									  <div class="media-body">
+									    <h4 class="media-heading">레귤라 손흘림 커피 <small>by 다동커피</small></h4>
+									    일본식 핸드드립과는 다소 다른 방식의 핸드드립. 부드러운 목넘김이 좋은 커피를 추출할 때 사용하는 드립 방식.
+									  </div>
+									</div>
+
+									<div class="media">
+									  <div class="embed-responsive embed-responsive-16by9">
+									  	<iframe class="embed-responsive-item" src="//www.youtube.com/embed/6V8c0qkcqFQ" allowfullscreen></iframe>
+										</div>
+									  <div class="media-body">
+									    <h4 class="media-heading">마일드 손흘림 커피 <small>by 다동커피</small></h4>
+									    솔직히 레귤라 손흘림 커피와 어떤 맛의 차이가 있는지 구분이 안된다. 원두의 종류와 상태에 따라 혼용해야 할텐데, 아직 모르겠다.
+									  </div>
+									</div>
+
+									<div class="media">
+									  <div class="embed-responsive embed-responsive-16by9">
+									  	<iframe class="embed-responsive-item" src="//www.youtube.com/embed/NgcxhoQhDoo" allowfullscreen></iframe>
+										</div>
+									  <div class="media-body">
+									    <h4 class="media-heading">스트롱 손흘림 커피 <small>by 다동커피</small></h4>
+									    주로 사용해 오던 드립 방식. 일본식 핸드 드립으로 불리우는 드립 방식으로 다소 거칠고 강한 맛의 커피를 추출할 때 사용하는 드립 방식.
+									  </div>
+									</div>
+
+								   </div>
+								</div> 
+							</div> <!-- /. Blog -->
+
+							<!-- Socal News -->
+							<div class="col-md-5">
+								<div class="panel panel-info">
+									<div class="panel-heading">
+										<h3 class="panel-title">Social News <small>about 로스팅커피</small></h3>
+									</div>
+									<a class="twitter-timeline" 
+									href="https://twitter.com/search?q=%EB%A1%9C%EC%8A%A4%ED%8C%85+%EC%BB%A4%ED%94%BC" 
+									data-widget-id="499388524638920708" 
+									data-chrome="noheader nofooter transparent">
+									Tweets about "커피"</a>
+								</div> <!-- Panel end -->
+							</div> <!-- /. social news -->
+
+						</div> <!-- row end -->
+
+				</div>
+				
+		
+
+				<div class="divider"></div>
+
+			
+			<div id="twitter"></div>	
+				<!--parallax 1 -->
+			<section class="bg-1 text-center">
+			  <h1>Twitter Cards Collection</h1>
+			  <p class="lead">골든커피어워드 수상 경력</p>
+			</section>
+			<!--/parallax 1-->
+
+			<div class="divider"></div>
+
+			<div class="container">
+			  
+				<div class="row">
+					
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>이 마스코트만 보이면, &quot;이 집은 커피 좀 아는 집이네.&quot;하는 어느정도의 개런티를 받을 수 있다는 사실이 대단하다. 그것도 한국 로컬 브랜드가. 이 집에서 볶는 커피가 전국으로 납품되고 있으니. 커피리브레. <a href="http://t.co/L4oN4vF5ph">pic.twitter.com/L4oN4vF5ph</a></p>&mdash; 앤더슨 Anderson (@burgersyndrome) <a href="https://twitter.com/burgersyndrome/statuses/360292030125064195">July 25, 2013</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en">
+							<p>통인동 커피공방의 소소한 디자인 2탄입니다~&#10;새로워진 공방에는 뷰 포인트가 있어요^^ <a href="http://t.co/25964jok5R">pic.twitter.com/25964jok5R</a></p>&mdash; 통인동 커피공방, BeanStore (@beanstore) 
+							<a href="https://twitter.com/beanstore/statuses/448351321830092800">March 25, 2014</a>
+						</blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en">
+							<p>포항아라비카에서 시다모 마시는중 &#10;괜한 기분탓인지 더 향기롭다. 
+							<a href="http://t.co/0PIzT7P4">pic.twitter.com/0PIzT7P4</a></p>
+							&mdash; KimEuGene (@Aurovilleee) 
+							<a href="https://twitter.com/Aurovilleee/statuses/255544056711614464">October 9, 2012</a>
+						</blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>다시 찾은 슈만과클라라.. 이번엔 드립커피랑 이니카빵 (@ 슈만과 클라라 / Cafe de Schumann and Clara) <a href="http://t.co/v2qgItx2oL">http://t.co/v2qgItx2oL</a> <a href="http://t.co/o4NsLBXmyq">pic.twitter.com/o4NsLBXmyq</a></p>&mdash; aventair (@aventair) <a href="https://twitter.com/aventair/statuses/452417410583511040">April 5, 2014</a></blockquote>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>커피볶는칼디 좋으다~!&#10;드립커피 정말 맛있다! :-) <a href="http://t.co/RSCnTK5VQq">pic.twitter.com/RSCnTK5VQq</a></p>&mdash; EUN YEONG KIM (@eunja1986) <a href="https://twitter.com/eunja1986/statuses/403407110475489280">November 21, 2013</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>혼자가서 더치 한잔 하기 좋은곳. 카페모리 <a href="http://t.co/dlbQiASKUs">pic.twitter.com/dlbQiASKUs</a></p>&mdash; Leejihye (@bebehahaha) <a href="https://twitter.com/bebehahaha/statuses/370916795864977408">August 23, 2013</a></blockquote>
+
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>핸드드립 교육중 - 보쿰커피로스터스 <a href="http://t.co/KmMaBzYNdV">pic.twitter.com/KmMaBzYNdV</a></p>&mdash; 원두커피는 보쿰커피 (@roasterkebean) <a href="https://twitter.com/roasterkebean/statuses/420459431462047744">January 7, 2014</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>I&#39;m at 커피팩토리 / Coffee Faktory (서울특별시) w/ 2 others <a href="http://t.co/2INsvpeai6">http://t.co/2INsvpeai6</a> <a href="http://t.co/Zk4EK4QPx2">pic.twitter.com/Zk4EK4QPx2</a></p>&mdash; 뭉칭이 최쌤 (@poichoii) <a href="https://twitter.com/poichoii/statuses/447287445600894976">March 22, 2014</a></blockquote>
+					</div>
+
+				</div> 
+
+				<div class="row">
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>커피가 맛있는 동네 까페의 바리스타(이며 사장님인 듯한) 아저씨. <a href="http://t.co/pE6ii8r0Pr">pic.twitter.com/pE6ii8r0Pr</a></p>&mdash; ickjong, 이크종 (@ickjong) <a href="https://twitter.com/ickjong/statuses/500558414150258690">August 16, 2014</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>제대로 모닝 커피 마시려고 했는데... 벌써 12시...ㅋㅋㅋ (@ 테라로사) <a href="https://t.co/Kux86SygDv">https://t.co/Kux86SygDv</a> <a href="http://t.co/uXhJvMaWMS">pic.twitter.com/uXhJvMaWMS</a></p>&mdash; KIM YEON KYOUNG (@KIMYEONKYOUNG) <a href="https://twitter.com/KIMYEONKYOUNG/statuses/499753633421221889">August 14, 2014</a></blockquote>
+
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>서랍한켠에서 나타난? 다동커피집 커피내리는법~ 생각나서 한잔 내려마시니 부드럽고 깔끔. 진한커피를 좋아하지만 이렇게 가끔 연한커피도 좋다. <a href="http://t.co/nLiseQ9kEV">pic.twitter.com/nLiseQ9kEV</a></p>&mdash; 두리번 (@jejumajoong) <a href="https://twitter.com/jejumajoong/statuses/320389332080930817">April 6, 2013</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>지난여름 강릉에서 누군가 핸드드립으로 내려준 르완다를 마셨을 때의 심중소회는 &lt;한약의 완벽한 환생&gt;이었다. 그 기억이 쌍문역 앞 로스터리 카페 &lt;가배미혼&gt;의 르완다에서 부드러운 산미를 지닌 과일맛으로 바뀌었다. <a href="http://t.co/5yRpcLt1wv">pic.twitter.com/5yRpcLt1wv</a></p>&mdash; parousia (@oldcafek) <a href="https://twitter.com/oldcafek/statuses/407786949957529600">December 3, 2013</a></blockquote>
+					</div>
+
+				</div> 
+			  
+
+				<div class="row">
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>서귀포 테라로사. <a href="http://t.co/F64ps6Sb4d">pic.twitter.com/F64ps6Sb4d</a></p>&mdash; song (@s_lacuna) <a href="https://twitter.com/s_lacuna/statuses/499438653169344513">August 13, 2014</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>상수역 부근 카페 어느좋은날에서 호두 바나나쉐이크를 마시며... <a href="http://t.co/7fliMmZAbp">pic.twitter.com/7fliMmZAbp</a></p>&mdash; 無情客 (@yyw6890) <a href="https://twitter.com/yyw6890/statuses/474832094456057857">June 6, 2014</a></blockquote>
+
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>광주의 한 커피볶는집, 아메리카노를 시켰는데 사장님이 서비스로 카푸치노를 손수 갖다주신다. 마시기 아까울만큼 예쁘고 소담하다. <a href="http://t.co/4ob8stSleR">pic.twitter.com/4ob8stSleR</a></p>&mdash; 하종강 (@labordream) <a href="https://twitter.com/labordream/statuses/347991161555800064">June 21, 2013</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>선릉담따라 읽는 커피볶는집. 가격착하고 -드립커피 4000원. 조용하고 커피냄새 좋은 가게 <a href="http://t.co/OoUcKigCaK">pic.twitter.com/OoUcKigCaK</a></p>&mdash; Jee-Hyun Ha (@jhnha) <a href="https://twitter.com/jhnha/statuses/437496553951883264">February 23, 2014</a></blockquote>
+					</div>
+
+				</div> 
+
+
+				<div class="row">
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>통영에 로스팅 커피로유명하고 전망좋은 jay&#39;s 커피스튜디오. 아포카토와 아메리카노 초코라떼를 시켰다. 금,토,일만 운영한다는 커피숍 조용하고 운치있다. <a href="http://t.co/nGWmNgNMRN">pic.twitter.com/nGWmNgNMRN</a></p>&mdash; soo jung (@cookni73) <a href="https://twitter.com/cookni73/statuses/381602133671309312">September 22, 2013</a></blockquote>
+
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>커피...^^ (@ 커피플라워) <a href="https://t.co/tUMjIvnw08">https://t.co/tUMjIvnw08</a> <a href="http://t.co/t5ebxlpAqi">pic.twitter.com/t5ebxlpAqi</a></p>&mdash; pianistmariaahn (@pianistmariaahn) <a href="https://twitter.com/pianistmariaahn/statuses/500463110277566464">August 16, 2014</a></blockquote>
+
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>어제 다녀온 서울 마티스커피 본점‥에서 오랜만에 우진씨가 라떼아트 뽐내주었음 ㅎㅎ <a href="http://t.co/3Pq2dZunaD">pic.twitter.com/3Pq2dZunaD</a></p>&mdash; 꿀한통설탕한스푼 (@mushmellow85) <a href="https://twitter.com/mushmellow85/statuses/436898507291496448">February 21, 2014</a></blockquote>
+					</div>
+
+					<div class="col-md-3">
+						<blockquote class="twitter-tweet" lang="en"><p>아이스아메 테이크아웃시 사이즈업.!! 맛난 커피를 배불리 먹겠음 (@ 콩볶는집 고양이똥) <a href="http://t.co/w0hFntXzaW">http://t.co/w0hFntXzaW</a> <a href="http://t.co/47RwoXqKwM">pic.twitter.com/47RwoXqKwM</a></p>&mdash; offcourse.HDX (@H_DuX_) <a href="https://twitter.com/H_DuX_/statuses/464632038818332672">May 9, 2014</a></blockquote>
+					</div>
+
+				</div> 
+
+			</div><!--/container-->
+			
+
+			<div class="divider"></div>
+			
+			
+			<div id="facebook"></div>
+			  
+			<section class="bg-2">
+			  <div class="col-sm-10 col-sm-offset-1 text-center">
+			  
+				<h1>Facebook Posts</h1>
+				
+			  </div>
+			</section>
+
+			<div class="divider"></div>
+
+			<div class="container">
+			  
+				<div class="row">
+					
+					<div class="col-md-4">
+						<div class="fb-post" data-href="https://www.facebook.com/samchungdong/photos/a.482123025220214.1073741826.138417766257410/484868231612360/?type=1" data-width="350"><div class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/samchungdong">커피방앗간 (본점)</a>님의 <a href="https://www.facebook.com/samchungdong/photos/a.482123025220214.1073741826.138417766257410/484868231612360/?type=1">글</a></div></div>
+					</div>
+					
+					<div class="col-md-4">
+							
+						<div class="fb-post" data-href="https://www.facebook.com/coffeelibre/photos/a.381736795206844.79763.376623202384870/714575831922937/?type=1" data-width="350"><div class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/coffeelibre">Coffee Libre (커피 리브레)</a>님의 <a href="https://www.facebook.com/coffeelibre/photos/a.381736795206844.79763.376623202384870/714575831922937/?type=1">글</a></div></div>
+
+					</div>
+					
+					<div class="col-md-4">		
+							
+						<div class="fb-post" data-href="https://www.facebook.com/jhunhajin/posts/528861633880764" data-width="350"><div class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/jhunhajin">전하진</a>님의 <a href="https://www.facebook.com/jhunhajin/posts/528861633880764">글</a></div></div>
+
+					</div>
+
+				</div>
+
+			</div><!--/container-->
+		
+
+			<div class="divider"></div>
+
+			
+			<div id="events"></div>
+
+			<!--parallax 2 -->
+			<section class="bg-3 text-center">
+			  <h1>Banner Events</h1>
+			  <p class="lead">유용한 이벤트 정보</p>
+			</section>
+			<!--/parallax 2-->
+
+			<div class="divider"></div>
+
+			<div class="container">
+				<!-- Carousel -->
+				<div id="main-carousel" class="carousel slide" style="margin: 15px">
+
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+					<li data-target="#main-carousel" data-slide-to="0" class="active"></li>
+					<li data-target="#main-carousel" data-slide-to="1"></li>
+					<li data-target="#main-carousel" data-slide-to="2"></li>
+				  </ol>
+				 
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner">
+				  
+					<div class="item active">
+					  <img data-src="holder.js/1200x800/social/auto/text:First slide" alt="..1..">
+					  <div class="carousel-caption">
+						<h3>첫번째 사진을 넣어야지.</h3>
+					  </div>
+					</div>
+					
+					<div class="item">
+					  <img data-src="holder.js/1200x800/vine/auto/text:Second slide" alt="..2..">
+					  <div class="carousel-caption">
+						<h3>두번째 사진을 넣어볼까?</h3>
+					  </div>
+					</div>
+					
+					<div class="item">
+					  <img data-src="holder.js/1200x800/industrial/auto/text:Third slide" alt="..3..">
+					  <div class="carousel-caption">
+						<h3>사진 3장을 언제 찾지?</h3>
+					  </div>
+					</div>
+					
+				  </div>
+			 
+				  <!-- Controls -->
+				  <a class="left carousel-control" href="#main-carousel" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				  </a>
+				  <a class="right carousel-control" href="#main-carousel" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				  </a>
+				  
+				</div> <!-- /.Carousel -->
+			
+			</div>
+
+		</div> <!-- /.MAIN 1st Column Layout -->
+
+
+		<div class="col-md-2">
+			
+			<div class="hidden-print hidden-xs hidden-sm" role="complementary" data-spy="affix" data-offset-top="30">
+	            
+				<div class="container-fluid" >
+					<div class="panel panel-default" >
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Contents</h3>
+					  </div>
+					  <div class="panel-body">
+					    
+					    <ul class="nav nav-pills nav-stacked" >
+
+			                <li><a href="#top"><span class="glyphicon glyphicon-heart"></span> New and Hot</a></li>
+							<li><a href="#blog"><span class="glyphicon glyphicon-cloud"></span> Blog and Social Feed</a></li>
+							<li><a href="#twitter"><span class="glyphicon glyphicon-retweet"></span> Twitter Cards</a></li>
+							<li><a href="#facebook"><span class="glyphicon glyphicon-hand-right"></span> Facebook Posts</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#top"><span class="glyphicon glyphicon-map-marker"></span> Zone <b class="caret"></b></a>
+								<ul class="dropdown-menu" role="menu">
+								    <li><a href="../zone/e_pangyo.html">동판교</a></li>
+								    <li><a href="../zone/w_pangyo.html">서판교</a></li>
+								    <li><a href="../zone/gangbuk.html">서울/강북</a></li>
+								    <li><a href="../zone/gangnam.html">서울/강남</a></li>
+								</ul>
+							</li>
+							<li><a href="#events"><span class="glyphicon glyphicon-plane"></span> Events</a></li>
+
+						</ul>
+
+					  </div>
+
+					</div>
+				</div>
+
+	            
+
+			</div>
+
+		</div> <!-- /.MAIN 2nd Column Layout -->
+
+	</div>
+
+<footer>
+	<!-- google custom search -->
+		<script>
+			  (function() {
+				var cx = '014449694390618282185:avxukptghyo';
+				var gcse = document.createElement('script');
+				gcse.type = 'text/javascript';
+				gcse.async = true;
+				gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+					'//www.google.com/cse/cse.js?cx=' + cx;
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(gcse, s);
+			  })();
+		</script>
+		<gcse:search></gcse:search> <!-- /. google custom search -->
+
+</footer>
+	
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

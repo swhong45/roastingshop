@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ko">
+ <head>
+	  <meta charset="UTF-8">
+	  <meta name="Generator" content="andy.sanghong">
+	  <meta name="Author" content="andy.sanghong">
+	  <meta name="Keywords" content="roasting coffee">
+	  <meta name="Description" content="">
+	  <title>Parallax Test</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+    <script type="text/javascript" src="js/respond.js"></script>
+    <script type="text/javascript" src="js/ga_analytics.js"></script>
+    <script type="text/javascript" src="js/holder.js"></script>
+    
+    <style>
+    	
+    	.divider {
+		    height:50px;
+		}
+		
+		section {
+		    height:500px;
+		    padding-top:50px;
+		    padding-bottom:50px;
+		    overflow:auto;
+		}
+		
+		
+		.bg-1 {
+			background: url('./img/img11.jpg') no-repeat center center fixed;
+		    color:#fff;
+		    background-size:cover;
+		}
+		  
+		.bg-2 {
+			background: url('./img/img11.jpg') no-repeat top center fixed;
+		    color:#fff;
+		    background-size:cover;
+		}
+		
+		.bg-3 {
+			background: url('./img/img11.jpg') no-repeat bottom center fixed;
+		    color:#fff;
+		    background-size:cover;
+		}
+		
+		#footer {
+		    height: 60px;
+		    background-color:#585858;
+		    margin-top:50px;
+		    padding-top:20px;
+		    padding-bottom:20px;
+		}
+		
+		#footer a {
+		  color:#efefef;
+		}
+
+    
+    </style>
+    
+    <script>
+    	(function($) {
+		 
+		    $.fn.parallax = function(options) {
+		        var windowHeight = $(window).height();
+		          // Establish default settings
+		        var settings = $.extend({
+		            speed        : 0.15
+		        }, options);
+		 
+		        // Iterate over each object in collection
+		        return this.each( function() {
+		 
+		        	// Save a reference to the element
+		        	var $this = $(this);
+		 
+		        	// Set up Scroll Handler
+		        	$(document).scroll(function(){
+		 
+		    		        var scrollTop = $(window).scrollTop();
+		            	        var offset = $this.offset().top;
+		            	        var height = $this.outerHeight();
+		 
+		    		// Check if above or below viewport
+					if (offset + height <= scrollTop || offset >= scrollTop + windowHeight) {
+						return;
+					}
+		 
+					var yBgPosition = Math.round((offset - scrollTop) * settings.speed);
+		 
+		                 // Apply the Y Background Position to Set the Parallax Effect
+		    			$this.css('background-position', 'center ' + yBgPosition + 'px');
+		                
+		        	});
+		        });
+		    }
+		}(jQuery));
+		
+		$('.bg-1,.bg-3').parallax({
+			speed :	0.15
+		});
+		
+		$('.bg-2').parallax({
+			speed :	0.25
+		});
+    </script>
+    
+ </head>
+ 
+ <body>
+ 	
+	<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '269336933215190',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.0' // use version 2.0
+  });
+
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name + '##' + response.id);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+</script>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div> <!-- facebook login button -->
+
+
+<div id="status">
+</div>
+
+<script>
+  (function() {
+    var cx = '014449694390618282185:avxukptghyo';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+ 	<!--parallax 1 -->
+<section class="bg-1 text-center">
+  <h1>Bootstrap Parallax</h1>
+  <p class="lead">Add Some Motion</p>
+</section>
+<!--/parallax 1-->
+
+
+<div class="container">
+  
+  	<hr>
+  
+  	<div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h3>Hello.</h3></div>
+            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+            Aliquam in felis sit amet augue.
+            </div>
+            <div class="panel-footer text-right"><a href="#" class="btn btn-default">More</a></div>
+          </div>
+        </div>
+      	<div class="col-md-4">
+        	<div class="panel panel-default">
+            <div class="panel-heading"><h3>Hello.</h3></div>
+            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+            Aliquam in felis sit amet augue.
+            </div>
+            <div class="panel-footer text-right"><a href="#" class="btn btn-default">More</a></div>
+          </div>
+        </div>
+      	<div class="col-md-4">
+        	<div class="panel panel-default">
+            <div class="panel-heading"><h3>Hello.</h3></div>
+            <div class="panel-body" style="alignment-adjust: central">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+            Aliquam in felis sit amet augue.
+            </div>
+            <div class="panel-footer text-right"><a href="#" class="btn btn-default">More</a></div>
+          </div>
+        </div>
+    </div><!--/row-->
+  
+    <hr>
+  
+</div><!--/container-->
+
+<div class="divider"></div>
+  
+<section class="bg-2">
+  <div class="col-sm-10 col-sm-offset-1 text-center">
+  
+    <h1>Keep Going</h1>
+    
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="container">
+  
+  	<div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h3>Hello.</h3></div>
+            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+            Aliquam in felis sit amet augue.
+            </div>
+            <div class="panel-footer text-right"><a href="#" class="btn btn-default">More</a></div>
+          </div>
+        </div>
+      	<div class="col-md-4">
+        	<div class="panel panel-default">
+            <div class="panel-heading"><h3>Hello.</h3></div>
+            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+            Aliquam in felis sit amet augue.
+            </div>
+            <div class="panel-footer text-right"><a href="#" class="btn btn-default">More</a></div>
+          </div>
+        </div>
+      	<div class="col-md-4">
+        	<div class="panel panel-default">
+            <div class="panel-heading"><h3>Hello.</h3></div>
+            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+            Aliquam in felis sit amet augue.
+            </div>
+            <div class="panel-footer text-right"><a href="#" class="btn btn-default">More</a></div>
+          </div>
+        </div>
+    </div>  
+</div><!--/container-->
+
+<div class="divider"></div>
+
+<!--parallax 2 -->
+<section class="bg-3 text-center">
+  <h1>Bootstrap Parallax</h1>
+  <p class="lead"></p>
+</section>
+<!--/parallax 2-->
+
+<div id="footer">
+  <div class="container">
+    <p class="text-muted">This Bootstrap Example courtesy <a href="http://www.bootply.com">Bootply.com</a></p>
+  </div>
+</div>
+ 	
+ </body>
+ 	
+</html>
